@@ -1,23 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
+import ReactDOM from 'react-dom';
+import TradeList from './components/tradeList/tradeList.component';
+import ForgeClient from 'forex-quotes';
+
 import './App.css';
+import TimerWidget from './components/timers/timerWidget.component';
 
 function App() {
+  let client = new ForgeClient('MQSQD7yWdtRc6BAltWIfhm8CFdaPrV6a');
+
+  client.getQuotes(['XAUUSD']).then((response) => {
+    console.log(response);
+  });
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <TimerWidget />
+        <TradeList />
       </header>
     </div>
   );
