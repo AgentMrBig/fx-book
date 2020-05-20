@@ -1,24 +1,33 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import TradeList from './components/tradeList/tradeList.component';
 import ForgeClient from 'forex-quotes';
 
 import './App.css';
 import TimerWidget from './components/timers/timerWidget.component';
+import FxData from './components/fxData/fxData.component';
+
+const FxDataContext = React.createContext([]);
 
 function App() {
-  let client = new ForgeClient('MQSQD7yWdtRc6BAltWIfhm8CFdaPrV6a');
+  const [fxData, setFxData] = useState([]);
 
-  client.getQuotes(['XAUUSD']).then((response) => {
-    console.log(response);
-  });
+  // let client = new ForgeClient('MQSQD7yWdtRc6BAltWIfhm8CFdaPrV6a');
+
+  // client.getQuotes(['XAUUSD']).then((response) => {
+  //   console.log(response);
+  // });
 
   return (
     <div className="App">
-      <header className="App-header">
-        <TimerWidget />
-        <TradeList />
-      </header>
+      <FxDataContext.Provider value={fxData}>
+        <header className="App-header">
+          <FxData />
+          <TimerWidget />
+
+          <TradeList />
+        </header>
+      </FxDataContext.Provider>
     </div>
   );
 }
